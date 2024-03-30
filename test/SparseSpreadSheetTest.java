@@ -1,26 +1,19 @@
-import java.io.IOException;
 import java.io.StringReader;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.Random;
-
 import spreadsheet.EnhancedSpreadSheet;
 import spreadsheet.MacroSpreadSheet;
 import spreadsheet.SpreadSheet;
 import spreadsheet.SparseSpreadSheet;
-import spreadsheet.SpreadSheetController;
 import spreadsheet.SpreadSheetControllerEnhanced;
 import spreadsheet.SpreadSheetMacro;
 import spreadsheet.BulkAssignMacro;
 import spreadsheet.AverageMacro;
 import spreadsheet.RangeMacro;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
-
-import java.util.List;
 
 /**
  * This class is the tester for a sparse spreadsheet.
@@ -161,6 +154,42 @@ public class SparseSpreadSheetTest {
   }
 
   /**
+   * Invalid start row.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidStartRow() {
+    Appendable appendable = new StringBuilder();
+    MacroSpreadSheet sheet = new EnhancedSpreadSheet();
+    SpreadSheetControllerEnhanced controller = new SpreadSheetControllerEnhanced(sheet,
+        new StringReader("bulk-assign-value \nA\n-1\nB\n4\n100\nquit"), appendable);
+    controller.processCommand(sheet);
+  }
+
+  /**
+   * invalid end row.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidEndRow() {
+    Appendable appendable = new StringBuilder();
+    MacroSpreadSheet sheet = new EnhancedSpreadSheet();
+    SpreadSheetControllerEnhanced controller = new SpreadSheetControllerEnhanced(sheet,
+        new StringReader("bulk-assign-value \nA\n1\nB\n-4\n100\nquit"), appendable);
+    controller.processCommand(sheet);
+  }
+
+  /**
+   * end row less than start row.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testEndRowLessThanStartRow() {
+    Appendable appendable = new StringBuilder();
+    MacroSpreadSheet sheet = new EnhancedSpreadSheet();
+    SpreadSheetControllerEnhanced controller = new SpreadSheetControllerEnhanced(sheet,
+        new StringReader("bulk-assign-value \nB\n4\nB\n1\n100\nquit"), appendable);
+    controller.processCommand(sheet);
+  }
+
+  /**
    * Tests the AverageMacro.
    */
   @Test
@@ -178,6 +207,42 @@ public class SparseSpreadSheetTest {
   }
 
   /**
+   * Invalid start row.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidStartRowAverage() {
+    Appendable appendable = new StringBuilder();
+    MacroSpreadSheet sheet = new EnhancedSpreadSheet();
+    SpreadSheetControllerEnhanced controller = new SpreadSheetControllerEnhanced(sheet,
+        new StringReader("average \nA\n-1\nB\n1\nC\n2\nquit"), appendable);
+    controller.processCommand(sheet);
+  }
+
+  /**
+   * invalid end row.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidEndRowAverage() {
+    Appendable appendable = new StringBuilder();
+    MacroSpreadSheet sheet = new EnhancedSpreadSheet();
+    SpreadSheetControllerEnhanced controller = new SpreadSheetControllerEnhanced(sheet,
+        new StringReader("average \nA\n1\nB\n-1\nC\n2\nquit"), appendable);
+    controller.processCommand(sheet);
+  }
+
+  /**
+   * end row less than start row.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testEndRowLessThanStartRowAverage() {
+    Appendable appendable = new StringBuilder();
+    MacroSpreadSheet sheet = new EnhancedSpreadSheet();
+    SpreadSheetControllerEnhanced controller = new SpreadSheetControllerEnhanced(sheet,
+        new StringReader("average \nB\n4\nB\n1\nC\n2\nquit"), appendable);
+    controller.processCommand(sheet);
+  }
+
+  /**
    * Tests the RangeMacro.
    */
   @Test
@@ -189,6 +254,42 @@ public class SparseSpreadSheetTest {
     controller.processCommand(enhancedSheet);
     assertEquals(1, enhancedSheet.get(0, 0), 0.01);
     assertEquals(2, enhancedSheet.get(0, 1), 0.01);
+  }
+
+  /**
+   * Invalid start row.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidStartRowRangeAssign() {
+    Appendable appendable = new StringBuilder();
+    MacroSpreadSheet sheet = new EnhancedSpreadSheet();
+    SpreadSheetControllerEnhanced controller = new SpreadSheetControllerEnhanced(sheet,
+        new StringReader("range-assign \nA\n-1\nA\n1\n1\n1\nquit"), appendable);
+    controller.processCommand(sheet);
+  }
+
+  /**
+   * invalid end row.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidEndRowRangeAssign() {
+    Appendable appendable = new StringBuilder();
+    MacroSpreadSheet sheet = new EnhancedSpreadSheet();
+    SpreadSheetControllerEnhanced controller = new SpreadSheetControllerEnhanced(sheet,
+        new StringReader("range-assign \nA\n1\nA\n-1\n1\n1\nquit"), appendable);
+    controller.processCommand(sheet);
+  }
+
+  /**
+   * end row less than start row.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testEndRowLessThanStartRowRangeAssign() {
+    Appendable appendable = new StringBuilder();
+    MacroSpreadSheet sheet = new EnhancedSpreadSheet();
+    SpreadSheetControllerEnhanced controller = new SpreadSheetControllerEnhanced(sheet,
+        new StringReader("range-assign \nB\n4\nB\n1\n1\n1\nquit"), appendable);
+    controller.processCommand(sheet);
   }
 
 

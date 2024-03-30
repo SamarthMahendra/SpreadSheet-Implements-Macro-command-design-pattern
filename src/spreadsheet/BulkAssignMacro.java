@@ -32,7 +32,6 @@ public class BulkAssignMacro implements SpreadSheetMacro {
     if (fromRow > toRow || fromCol > toCol) {
       throw new IllegalArgumentException("Invalid range");
     }
-
     this.fromRow = fromRow;
     this.fromCol = fromCol;
     this.toRow = toRow;

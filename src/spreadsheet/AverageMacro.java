@@ -19,7 +19,7 @@ public class AverageMacro implements SpreadSheetMacro {
   private final int destCol;
 
   /**
-   * Constructs a new AverageMacro object that takes spreadsheet and start and end cells
+   * Constructs a new AverageMacro object that takes spreadsheet and start and end cells.
    *
    * @param fromRow starting row
    * @param fromCol starting column
@@ -37,6 +37,10 @@ public class AverageMacro implements SpreadSheetMacro {
     if (fromRow > toRow || fromCol > toCol) {
       throw new IllegalArgumentException("Invalid range");
     }
+    // check for valid destination cell
+    if (destRow < fromRow || destRow > toRow || destCol < fromCol || destCol > toCol) {
+      throw new IllegalArgumentException("Invalid destination cell");
+    }
     this.fromRow = fromRow;
     this.fromCol = fromCol;
     this.toRow = toRow;
@@ -48,6 +52,7 @@ public class AverageMacro implements SpreadSheetMacro {
 
   /**
    * Takes a object of SpreadSheetMacro and assigns the values of the cells of the current
+   * spreadsheet to the destination cell.
    *
    * @param sheet the spreadsheet
    */

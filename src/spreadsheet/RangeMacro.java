@@ -1,5 +1,8 @@
 package spreadsheet;
-// range-assign from-row-num from-col-num to-row-num to-col-num start-value increment. This will set a row or column of cells to a range of values starting at the given value and advancing by the given increment. For example range-assign A 1 A 10 1 1 will assign A1:A10 to values 1, 2, 3, ..., 10 respectively.
+// range-assign from-row-num from-col-num to-row-num to-col-num start-value increment.
+// This will set a row or column of cells to a range of values starting at the given value and
+// advancing by the given increment. For example range-assign A 1 A 10 1 1
+// will assign A1:A10 to values 1, 2, 3, ..., 10 respectively.
 
 /**
  * This class represents the RangeMacro class that implements the SpreadSheetMacro interface. This
@@ -16,7 +19,7 @@ public class RangeMacro implements SpreadSheetMacro {
   private double increment;
 
   /**
-   * Constructs a new RangeMacro object that takes spreadsheet and start and end cells
+   * Constructs a new RangeMacro object that takes spreadsheet and start and end cells.
    *
    * @param fromRow    starting row
    * @param fromCol    starting column
@@ -45,6 +48,7 @@ public class RangeMacro implements SpreadSheetMacro {
 
   /**
    * Takes a object of SpreadSheetMacro and assigns the values of the cells of the current
+   * spreadsheet to the destination cell.
    *
    * @param sheet the spreadsheet
    */

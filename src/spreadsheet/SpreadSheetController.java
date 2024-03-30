@@ -1,7 +1,6 @@
 package spreadsheet;
 
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -177,7 +176,7 @@ public class SpreadSheetController {
   /**
    * Print the farewell message.
    *
-   * @throws IllegalStateException
+   * @throws IllegalStateException if there is an error in writing the message.
    */
   protected void farewellMessage() throws IllegalStateException {
     writeMessage("Thank you for using this program!");
